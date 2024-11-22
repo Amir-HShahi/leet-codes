@@ -11,15 +11,16 @@ class Solution {
                 firstStack.push(character);
             }
         }
-        System.out.println(firstStack);
         for (Character character : t.toCharArray()) {
             if (!secondStack.isEmpty() && character.equals('#')) {
                 secondStack.pop();
-            } else if (!character.equals('#')){
+            } else if (!character.equals('#')) {
                 secondStack.push(character);
             }
         }
-        System.out.println(secondStack);
+        if (firstStack.size() != secondStack.size()) {
+            return false;
+        }
         while (!firstStack.isEmpty() && !secondStack.isEmpty()) {
             if (firstStack.pop() != secondStack.pop()) {
                 return false;
