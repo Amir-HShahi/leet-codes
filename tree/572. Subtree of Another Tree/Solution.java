@@ -36,8 +36,8 @@ public class Solution {
         if (root == null) {
             return false;
         }
-        if (root.val == subRoot.val) {
-            return compareNodes(root, subRoot);
+        if (compareNodes(root, subRoot)) {
+            return true;
         }
         return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
     }
