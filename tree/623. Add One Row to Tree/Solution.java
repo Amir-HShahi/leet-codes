@@ -23,12 +23,15 @@ public class Solution {
             return root;
         }
         if (depth == 1) {
-            TreeNode newNode = new TreeNode();
-            newNode.val = val;
-            return newNode;
+            return new TreeNode(val, root, null);
         }
-        root.left = addOneRow(root.left, val, depth--);
-        root.right = addOneRow(root.right, val, depth--);
+        if (depth == 2) {
+            root.left = new TreeNode(val, root.left, null);
+            root.right = new TreeNode(val, null, root.right);
+            return root;
+        }
+        root.left = addOneRow(root.left, val, depth - 1);
+        root.right = addOneRow(root.right, val, depth - 1);
         return root;
     }
 }
