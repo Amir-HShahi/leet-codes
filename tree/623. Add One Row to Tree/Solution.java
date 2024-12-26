@@ -19,17 +19,18 @@ class TreeNode {
 
 public class Solution {
     public TreeNode addOneRow(TreeNode root, int val, int depth) {
-        if (root == null) {
+        if (root == null) { // tree is empty
             return root;
         }
-        if (depth == 1) {
+        if (depth == 1) { // At root level, so convert root
             return new TreeNode(val, root, null);
         }
-        if (depth == 2) {
+        if (depth == 2) { // At root children, so convert children
             root.left = new TreeNode(val, root.left, null);
             root.right = new TreeNode(val, null, root.right);
             return root;
         }
+        // more depth
         root.left = addOneRow(root.left, val, depth - 1);
         root.right = addOneRow(root.right, val, depth - 1);
         return root;
