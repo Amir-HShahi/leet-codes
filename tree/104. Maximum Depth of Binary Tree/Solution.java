@@ -18,18 +18,12 @@ class TreeNode {
 }
 
 public class Solution {
-    private int maxDepth = 0;
     public int maxDepth(TreeNode root) {
-        maxDepth(root, 1);
-        return maxDepth;
-    }
-
-    private void maxDepth(TreeNode root, int depth) {
         if (root == null) {
-            maxDepth = depth > maxDepth ? depth - 1 : maxDepth;
-            return;
+            return 0;
         }
-        maxDepth(root.left, depth + 1);
-        maxDepth(root.right, depth + 1);
+        int rightDepth = maxDepth(root.right) + 1;
+        int leftDepth = maxDepth(root.left) + 1;
+        return rightDepth > leftDepth ? rightDepth : leftDepth;
     }
 }
