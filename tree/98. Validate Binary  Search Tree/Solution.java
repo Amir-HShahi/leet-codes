@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 class TreeNode {
     int val;
     TreeNode left;
@@ -22,14 +24,9 @@ public class Solution {
         if (root == null) {
             return true;
         }
-        boolean flag = true;
-        if (root.left != null) {
-            flag = root.left.val < root.val;
-        }
-        if (root.right != null) {
-            flag = root.right.val > root.val;
-        }
 
-        return flag ? isValidBST(root.left) && isValidBST(root.right) : false;
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        while (!stack.empty()) {
+        }
     }
 }
