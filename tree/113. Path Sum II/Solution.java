@@ -24,11 +24,6 @@ public class Solution {
     private List<List<Integer>> pathSumLists = new ArrayList<List<Integer>>();
 
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
-        if (root == null) {
-            return pathSumLists;
-        }
-        ArrayList<Integer> init = new ArrayList<Integer>();
-        init.add(root.val);
         DepthFirstSearch(root, targetSum, new ArrayList<>());
         return pathSumLists;
     }
@@ -37,15 +32,16 @@ public class Solution {
         if (root == null)
             return;
 
+        tracker.add(root.val);
         targetSum -= root.val;
         if (root.left == null && root.right == null && targetSum == 0) {
-            tracker.add(root.val);
-            pathSumLists.add(tracker);
+            pathSumLists.add(new ArrayList<>(tracker));
+            tracker.removeLast();
             return;
         }
 
-        tracker.add(root.val);
-        DepthFirstSearch(root.left, targetSum, new ArrayList<Integer>(tracker));
-        DepthFirstSearch(root.right, targetSum, new ArrayList<Integer>(tracker));
+        DepthFirstSearch(root.left, targetSum, tracker);
+        DepthFirstSearch(root.right, targetSum, tracker);
+        tracker.removeLast();
     }
 }
