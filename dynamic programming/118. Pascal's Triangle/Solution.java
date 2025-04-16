@@ -10,7 +10,7 @@ class Solution {
             row[0] = 1;
             row[length - 1] = 1;
             for (int i = 1; i < row.length - 1; i++) {
-                List<Integer> prevRow = rows.get(length - 2);
+                List<Integer> prevRow = rows.get(length - 2); // one for index, one for prev length
                 row[i] = prevRow.get(i) + prevRow.get(i - 1);
             }
             rows.add(Arrays.asList(row));
