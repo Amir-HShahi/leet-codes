@@ -1,30 +1,27 @@
 class TreeAncestor {
     final int[][] up;
-    final int logN;
+    final int maxPow;
 
     public TreeAncestor(int n, int[] parent) {
-        logN = (int) (Math.log(n) / Math.log(2)) + 1;
-        up = new int[n][logN];
-
-        for (int i = 0; i < n; i++)
-            up[i][0] = parent[i];
-
-        for (int j = 1; j < logN; j++)
-            for (int i = 0; i < n; i++)
-                if (up[i][j - 1] != -1)
-                    up[i][j] = up[up[i][j - 1]][j - 1];
-                else
-                    up[i][j] = -1;
+        maxPow = (int) (Math.log(n) / Math.log(2)) + 1;
+        up = new int[maxPow][n];
+        up[0] = parent;
+        for (int j = 1; j < maxPow; j++) {
+            for (int i = 0; i < n; i++) {
+                int pre = up[j - 1][i];
+                up[j][i] = pre == -1 ? -1 : up[j - 1][pre];
+            }
+        }
     }
 
     public int getKthAncestor(int node, int k) {
-        for (int i = 0; i < logN; i++) {
-            if (node == -1)
-                return -1;
-
-            if ((k & (1 << i)) != 0)
-                node = up[node][i];
-
+        int pow = this.maxPow;
+        while (k > 0 && node > -1) {
+            if (k >= 1 << pow) {
+                node = up[pow][node];
+                k -= 1 << pow;
+            } else
+                pow -= 1;
         }
         return node;
     }
